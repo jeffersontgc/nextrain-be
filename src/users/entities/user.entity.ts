@@ -27,12 +27,6 @@ export class User {
   @Column({ type: 'varchar', length: 255, nullable: true })
   password?: string;
 
-  @Column({
-    type: 'varchar',
-    length: 10,
-  })
-  status: string;
-
   @Column({ name: 'last_login_at', type: 'timestamp', nullable: true })
   lastLoginAt?: Date;
 
