@@ -1,4 +1,4 @@
-import { Product } from '../../products/entities/product.entity';
+import { Category } from '../../categories/entities/category.entity';
 import {
   Column,
   CreateDateColumn,
@@ -6,11 +6,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
-@Entity({ name: 'categories' })
-export class Category {
+@Entity({ name: 'products' })
+export class Product {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -20,8 +21,15 @@ export class Category {
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @OneToMany(() => Product, (product) => product.category)
-  products: Product[];
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  description?: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  price: string;
+
+  @ManyToOne(() => Category, (category) => category.products)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 
   @CreateDateColumn({
     name: 'created_at',

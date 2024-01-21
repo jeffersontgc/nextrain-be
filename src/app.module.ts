@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { CategoriesModule } from './categories/categories.module';
 import { enviroments } from './config/env';
+import { ProductsModule } from './products/products.module';
 import config from './config';
 
 @Module({
@@ -27,6 +28,7 @@ import config from './config';
     DatabaseModule,
     UsersModule,
     CategoriesModule,
+    ProductsModule,
   ],
   providers: [],
 })
