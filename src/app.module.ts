@@ -4,7 +4,7 @@ import * as Joi from 'joi';
 
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
-
+import { CategoriesModule } from './categories/categories.module';
 import { enviroments } from './config/env';
 import config from './config';
 
@@ -26,6 +26,7 @@ import config from './config';
     }),
     DatabaseModule,
     UsersModule,
+    CategoriesModule,
   ],
   providers: [],
 })
