@@ -27,6 +27,8 @@ export class ProductsService {
         ...args,
         uuid: uuidv4(),
         category,
+        image:
+          'https://c4.wallpaperflare.com/wallpaper/237/148/1014/burger-4k-top-rated-wallpaper-preview.jpg',
       });
 
       await this.productRepo.save(productCreated);
@@ -39,26 +41,26 @@ export class ProductsService {
     }
   }
 
-  async findAll(args: ArgsFechtProducts) {
-    try {
-      const { search, category_uuid } = args;
+  async findAll(args: ArgsFechtProducts): Promise<Product[]> {
+    const { search, category_uuid } = args || {};
+    let query = this.productRepo.createQueryBuilder('product');
 
-      const query = this.productRepo.createQueryBuilder('product');
-
-      if (search) {
-        query.andWhere('product.name ILIKE :search', { search: `%${search}%` });
-      }
-
-      if (category_uuid) {
-        query.andWhere('product.category_uuid = :category_uuid', {
-          category_uuid,
-        });
-      }
-
-      return await query.getMany();
-    } catch (error) {
-      throw error;
+    if (search) {
+      query = query.where('product.name LIKE :search', {
+        search: `%${search}%`,
+      });
     }
+
+    if (category_uuid) {
+      query = query.innerJoinAndSelect(
+        'product.category',
+        'category',
+        'category.uuid = :categoryUuid',
+        { category_uuid },
+      );
+    }
+
+    return await query.getMany();
   }
 
   async findOneByUuid(uuid: string) {

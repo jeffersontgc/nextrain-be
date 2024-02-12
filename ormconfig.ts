@@ -14,7 +14,7 @@ const source = new DataSource({
   password: configService.get('POSTGRES_PASSWORD'),
   database: configService.get('POSTGRES_DB'),
   synchronize: false,
-  logging: false,
+  logging: true,
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
   entities: ['src/**/*.entity.ts'],
