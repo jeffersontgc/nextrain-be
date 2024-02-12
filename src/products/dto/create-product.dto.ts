@@ -17,6 +17,10 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   price: string;
+
+  @IsString()
+  @IsOptional()
+  image?: string;
 }
 
 export class ArgsFechtProducts {
